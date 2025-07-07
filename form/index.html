@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Сервис расчета финансовых показателей проекта. Version R.001</title>
+  <link rel="icon" href="LogoNnArrowSmall.jpg" type="image/png">
+  <style>
+    body { font-family: sans-serif; padding: 20px; max-width:800px; margin:auto; }
+    label { display:block; margin-top:15px; font-weight:bold; }
+    input, select { width:100%; padding:8px; margin-top:5px; }
+    .hint { font-size:0.9em; color:#555; }
+    button { margin-top:20px; padding:10px 20px; background:#4CAF50; color:white; border:none; cursor:pointer; }
+    button:hover { background:#45a049; }
+  </style>
+</head>
+<body>
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+  <div style="display: flex; align-items: center;">
+    <img src="LogoNnArrowSmall.jpg" alt="Naletov & Numbers logo" style="height:50px; margin-right: 15px;">
+    <span style="font-size: 1.4em; font-weight: bold; color: #333;">Naletov & Numbers</span>
+  </div>
+  <a href="https://naletov.org" style="padding:10px 20px; background:#0056b3; color:white; text-decoration:none; border-radius:4px;">
+    На главную
+  </a>
+</div>
+
+  <h1>Финансовый расчёт проекта</h1>
+  <p class="hint">Вы находитесь на странице заполнения формы для получения финансового расчета сервиса Naletov & Numbers. Чем больше данных вы предоставите, тем точнее будет финансовый расчет. Сервис гарантирует полную конфиденциальность</p>
+  <form id="financeForm">
+    <!-- Начальные поля -->
+    <label>Имя и фамилия *</label>
+    <input type="text" name="fullname" required>
+
+    <label>Название бизнеса</label>
+    <input type="text" name="business_name">
+
+    <label>Email *</label>
+    <input type="email" name="email" required>
+
+    <label>Форма бизнеса *</label>
+    <select name="form" required>
+      <option value="">-- выберите --</option>
+      <option value="ИП">ИП</option>
+      <option value="ООО">ООО</option>
+      <option value="ОАО">ОАО</option>
+    </select>
+    <p class="hint">Например: ИП для малого бизнеса, ООО или ОАО в соответствии с видом деятельности</p>
+
+    <label>Срок планирования (лет)</label>
+    <input type="number" name="horizon" value="5">
+    <p class="hint">Минимальный срок планирования - 1 год, максимальный - 20 лет</p>
+
+    <label>Выручка в месяц (₽) *</label>
+    <input type="number" name="revenue" required>
+    <p class="hint">Заполните прогнозируемую цифру в пессиместичном варианте развития событий</p>
+    <!-- ... остальные поля ... -->
+    <label>Инвестиции на запуск (₽) *</label>
+    <input type="number" name="investment" required>
+    <p class="hint">Внесите сумму инвестиций или планируемый к получению кредит</p>
+
+    <!-- Завершающие поля -->
+    <label>Ставка по кредиту (%)</label><input type="number" name="loan_percent">
+    <label>Кредитные каникулы (мес)</label><input type="number" name="loan_holiday">
+    <p class="hint">Начальный срок действия бизнеса, который согласован с инвестором/банком, в течение которого вы не вносите средства в погашения основного долга, только проценты</p>
+    <label>Срок кредита (мес)</label><input type="number" name="loan_term">
+
+    <p style="font-size: 0.9em; color: #555; margin-top: 20px;">
+  Отправляя данные этой формы, я ознакомился и согласился с 
+  <a href="https://naletov.org/privacy-policies/" target="_blank" style="color:#0056b3; text-decoration:underline;">
+    Политикой конфиденциальности и Политикой обработки персональных данных
+  </a>
+</p>
+
+    <button type="submit">Рассчитать</button>
+  </form>
+  <p id="result"></p>
+
+  <script>
+    document.getElementById('financeForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const data = Object.fromEntries(new FormData(form));
+      document.getElementById('result').innerText = 'Выполняется расчет...';
+
+      try {
+        const resp = await fetch('https://your-railway-backend.com/api/calculate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        if(!resp.ok) throw new Error('Ошибка сервера');
+        const blob = await resp.blob();
+        const url = URL.createObjectURL(blob);
+        document.getElementById('result').innerHTML = `<a href="${url}" download="report.pdf">Скачать PDF с результатами</a>`;
+      } catch (err) {
+        document.getElementById('result').innerText = 'Ошибка при расчёте: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
