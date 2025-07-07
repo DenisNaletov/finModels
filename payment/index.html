@@ -1,0 +1,35 @@
+<form action="https://form.naletov.org" method="GET" onsubmit="saveToBackend(event)">
+  <label>Имя и фамилия *</label>
+  <input type="text" name="fullname" required>
+
+  <label>Email *</label>
+  <input type="email" name="email" required>
+
+  <label>Выберите способ оплаты</label>
+  <select name="payment_method" required>
+    <option value="">-- выберите --</option>
+    <option value="stripe">Stripe (зарубежные карты)</option>
+    <option value="crypto">USDT / криптовалюта</option>
+  </select>
+
+  <button type="submit">Перейти к расчёту</button>
+</form>
+
+<script>
+  async function saveToBackend(e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = Object.fromEntries(new FormData(form));
+
+    // ✅ Отправка данных на backend
+    await fetch('https://your-backend.up.railway.app/api/save-client', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    // 🔁 Перенаправление на form.naletov.org с query-параметрами
+    const query = new URLSearchParams(data).toString();
+    window.location.href = `https://form.naletov.org?${query}`;
+  }
+</script>
