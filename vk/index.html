@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1590, initial-scale=1.0" />
+  <title>Up&Grow Cover</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      width: 1590px;
+      height: 400px;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(90deg, #f4f4f4, #e9f6f0);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 40px 80px;
+      color: #222;
+    }
+    .text-block {
+      font-size: 42px;
+      font-weight: 600;
+      animation: fade 1s ease-in-out;
+    }
+    .logo-block img {
+      max-height: 80px;
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+      opacity: 0.7;
+      animation: blink 2s infinite;
+    }
+    @keyframes fade {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="text-block" id="text">Бизнес на языке цифр</div>
+  <div class="logo-block">
+    <img src="logo.png" alt="Up&Grow Logo" />
+  </div>
+  <div class="scroll-hint">👇 Листай вниз</div>
+
+  <script>
+    const texts = [
+      "Бизнес на языке цифр",
+      "От идеи — к плану",
+      "Zoom-консультация бесплатно"
+    ];
+    let index = 0;
+    const textElement = document.getElementById('text');
+    setInterval(() => {
+      index = (index + 1) % texts.length;
+      textElement.innerText = texts[index];
+      textElement.style.animation = "none";
+      void textElement.offsetWidth;
+      textElement.style.animation = "fade 1s ease-in-out";
+    }, 3000);
+  </script>
+</body>
+</html>
