@@ -83,7 +83,7 @@
       document.getElementById('result').innerText = 'Выполняется расчет...';
 
       try {
-          const resp = await fetch('http://localhost:8080/api/finance/calculate', {
+          const resp = await fetch('http://localhost:8088/api/finance/calculate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
