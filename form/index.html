@@ -83,15 +83,20 @@
       document.getElementById('result').innerText = 'Выполняется расчет...';
 
       try {
-          const resp = await fetch('http://localhost:8088/api/finance/calculate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        });
-        if(!resp.ok) throw new Error('Ошибка сервера');
-        const blob = await resp.blob();
-        const url = URL.createObjectURL(blob);
-        document.getElementById('result').innerHTML = `<a href="${url}" download="report.pdf">Скачать PDF с результатами</a>`;
+
+const resp = await fetch('http://localhost:8080/api/finance/calculate', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(data),
+});
+if (!resp.ok) throw new Error('Ошибка сервера');
+const result = await resp.json();
+
+document.getElementById('result').innerHTML = `
+  <b>Чистая прибыль:</b> ${result.netProfit.toFixed(2)} ₽<br>
+  <b>ROI:</b> ${result.roi.toFixed(2)}%<br>
+  <b>Срок окупаемости:</b> ${result.paybackPeriod.toFixed(2)} месяцев`;
+
       } catch (err) {
         document.getElementById('result').innerText = 'Ошибка при расчёте: ' + err.message;
       }
