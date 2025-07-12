@@ -1,106 +1,188 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>Сервис расчета финансовых показателей проекта. Version R.001</title>
-  <link rel="icon" href="LogoNnArrowSmall.jpg" type="image/png">
-  <style>
-    body { font-family: sans-serif; padding: 20px; max-width:800px; margin:auto; }
-    label { display:block; margin-top:15px; font-weight:bold; }
-    input, select { width:100%; padding:8px; margin-top:5px; }
-    .hint { font-size:0.9em; color:#555; }
-    button { margin-top:20px; padding:10px 20px; background:#4CAF50; color:white; border:none; cursor:pointer; }
-    button:hover { background:#45a049; }
-  </style>
-</head>
-<body>
-<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-  <div style="display: flex; align-items: center;">
-    <img src="LogoNnArrowSmall.jpg" alt="Naletov & Numbers logo" style="height:50px; margin-right: 15px;">
-    <span style="font-size: 1.4em; font-weight: bold; color: #333;">Naletov & Numbers</span>
-  </div>
-  <a href="https://naletov.org" style="padding:10px 20px; background:#0056b3; color:white; text-decoration:none; border-radius:4px;">
-    На главную
-  </a>
-</div>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Up&Grow Business Planner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-..."
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="icon" href="Logo.png" type="image/png" />
+  </head>
 
-  <h1>Финансовый расчёт проекта</h1>
-  <p class="hint">Вы находитесь на странице заполнения формы для получения финансового расчета сервиса Naletov & Numbers. Чем больше данных вы предоставите, тем точнее будет финансовый расчет. Сервис гарантирует полную конфиденциальность</p>
-  <form id="financeForm">
-    <!-- Начальные поля -->
-    <label>Имя и фамилия *</label>
-    <input type="text" name="fullname" required>
+  <body>
+    <header class="header">
+      <div class="logo-section">
+        <img src="Logo.png" alt="Logo" />
+        <span>Up&Grow Business Planner</span>
+      </div>
+      <a class="home-button" href="https://naletov.org">На главную</a>
+    </header>
 
-    <label>Название бизнеса</label>
-    <input type="text" name="business_name">
+    <main>
+      <h1>Генератор финансовой модели. Ver. R.003</h1>
+      <p class="hint">
+        Заполните форму для получения расчета. Чем больше данных, тем точнее
+        результат. Мы гарантируем конфиденциальность.
+      </p>
 
-    <label>Email *</label>
-    <input type="email" name="email" required>
+      <form id="financeForm" class="form-container">
+        <fieldset>
+          <legend>Общие данные</legend>
+          <div class="row">
+            <div class="input-with-icon">
+              <i class="fa fa-user"></i>
+              <input type="text" name="fullname" placeholder="Имя" required />
+            </div>
+            <div class="input-with-icon">
+              <i class="fa fa-envelope"></i>
+              <input type="email" name="email" placeholder="Email" required />
+            </div>
+            <div class="input-with-icon">
+              <i class="fa fa-briefcase"></i>
+              <input
+                type="text"
+                name="businessName"
+                placeholder="Название проекта"
+              />
+            </div>
+          </div>
 
-    <label>Форма бизнеса *</label>
-    <select name="form" required>
-      <option value="">-- выберите --</option>
-      <option value="ИП">ИП</option>
-      <option value="ООО">ООО</option>
-      <option value="ОАО">ОАО</option>
-    </select>
-    <p class="hint">Например: ИП для малого бизнеса, ООО или ОАО в соответствии с видом деятельности</p>
+          <div class="row">
+            <div class="input-with-icon">
+              <i class="fa fa-building"></i>
+              <select name="form" required>
+                <option value="">Тип предприятия</option>
+                <option value="ИП">ИП</option>
+                <option value="ООО">ООО</option>
+              </select>
+            </div>
+            <div class="input-with-icon">
+              <i class="fa fa-percent"></i>
+              <select name="taxSystem" required>
+                <option value="">Налоговая система</option>
+                <option value="usn_6">УСН 6%</option>
+                <option value="usn_15">УСН 15%</option>
+                <option value="osno">ОСНО</option>
+                <option value="patent">Патент</option>
+              </select>
+            </div>
+            <div class="input-with-icon">
+              <i class="fa fa-calendar"></i>
+              <input
+                type="number"
+                name="horizon"
+                placeholder="Срок планирования, лет"
+                min="1"
+                max="20"
+              />
+            </div>
+          </div>
+        </fieldset>
 
-    <label>Срок планирования (лет)</label>
-    <input type="number" name="horizon" value="5">
-    <p class="hint">Минимальный срок планирования - 1 год, максимальный - 20 лет</p>
+        <fieldset>
+          <legend>Доходы ежемесячные, тыс ₽</legend>
+          <div class="row">
+            <div class="input-with-icon">
+              <i class="fa fa-chart-line"></i>
+              <input type="number" name="revenue" placeholder="Выручка" />
+            </div>
+            <div class="input-with-icon">
+              <i class="fa fa-arrow-up"></i>
+              <input
+                type="number"
+                name="revenueGrowthPercent"
+                placeholder="Рост, %"
+              />
+            </div>
+            <div class="input-with-icon">
+              <i class="fa fa-clock"></i>
+              <select name="revenueGrowthPeriod">
+                <option value="">Период роста</option>
+                <option value="monthly">Каждый месяц</option>
+                <option value="2months">Каждые 2 мес</option>
+                <option value="quarter">Ежеквартально</option>
+                <option value="halfyear">Раз в полгода</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
 
-    <label>Выручка в месяц (₽) *</label>
-    <input type="number" name="revenue" required>
-    <p class="hint">Заполните прогнозируемую цифру в пессиместичном варианте развития событий</p>
-    <!-- ... остальные поля ... -->
-    <label>Инвестиции на запуск (₽) *</label>
-    <input type="number" name="investment" required>
-    <p class="hint">Внесите сумму инвестиций или планируемый к получению кредит</p>
+        <fieldset>
+          <legend>Переменные расходы ежемесячные, тыс ₽</legend>
+          <div class="row">
+            <div class="input-with-icon">
+              <i class="fa fa-sliders-h"></i>
+              <select name="variableExpensesIsPercent">
+                <option value="true">в % от выручки</option>
+                <option value="false">в рублях</option>
+              </select>
+            </div>
+            <div class="input-with-icon">
+              <i class="fa fa-ruble-sign"></i>
+              <input
+                type="number"
+                name="variableExpensesValue"
+                placeholder="Переменные расходы"
+              />
+            </div>
+          </div>
+        </fieldset>
 
-    <!-- Завершающие поля -->
-    <label>Ставка по кредиту (%)</label><input type="number" name="loan_percent">
-    <label>Кредитные каникулы (мес)</label><input type="number" name="loan_holiday">
-    <p class="hint">Начальный срок действия бизнеса, который согласован с инвестором/банком, в течение которого вы не вносите средства в погашения основного долга, только проценты</p>
-    <label>Срок кредита (мес)</label><input type="number" name="loan_term">
+        <fieldset>
+          <legend>Постоянные расходы ежемесячные, тыс ₽</legend>
+          <div class="row row-four">
+            <input type="number" name="suppliesExpense" placeholder="Закупки" />
+            <input type="number" name="salaryExpense" placeholder="Зарплата" />
+            <input type="number" name="rentExpense" placeholder="Аренда" />
+            <input type="number" name="otherExpense" placeholder="Прочие" />
+          </div>
+        </fieldset>
 
-    <p style="font-size: 0.9em; color: #555; margin-top: 20px;">
-  Отправляя данные этой формы, я ознакомился и согласился с 
-  <a href="https://naletov.org/privacy-policies/" target="_blank" style="color:#0056b3; text-decoration:underline;">
-    Политикой конфиденциальности и Политикой обработки персональных данных
-  </a>
-</p>
+        <fieldset>
+          <legend>Инвестиционные данные</legend>
+          <div class="row row-four">
+            <input
+              type="number"
+              name="investment"
+              placeholder="Инвестиции, тыс ₽"
+            />
+            <input
+              type="number"
+              name="loanPercent"
+              placeholder="% по кредиту"
+            />
+            <input
+              type="number"
+              name="loanHoliday"
+              placeholder="Кредит. каникулы, мес"
+            />
+            <input
+              type="number"
+              name="loanTerm"
+              placeholder="Срок кредита, лет"
+            />
+          </div>
+        </fieldset>
 
-    <button type="submit">Рассчитать</button>
-  </form>
-  <p id="result"></p>
+        <p class="privacy">
+          Отправляя форму, вы соглашаетесь с
+          <a href="https://naletov.org/privacy-policies/" target="_blank"
+            >Политикой конфиденциальности</a
+          >.
+        </p>
 
-  <script>
-    document.getElementById('financeForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const data = Object.fromEntries(new FormData(form));
-      document.getElementById('result').innerText = 'Выполняется расчет...';
+        <button type="submit">Рассчитать</button>
+      </form>
 
-      try {
+      <div id="result" class="result-box"></div>
+    </main>
 
-const resp = await fetch('http://localhost:8088/api/finance/calculate', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(data),
-});
-if (!resp.ok) throw new Error('Ошибка сервера');
-const result = await resp.json();
-
-document.getElementById('result').innerHTML = `
-  <b>Чистая прибыль:</b> ${result.netProfit.toFixed(2)} ₽<br>
-  <b>ROI:</b> ${result.roi.toFixed(2)}%<br>
-  <b>Срок окупаемости:</b> ${result.paybackPeriod.toFixed(2)} месяцев`;
-
-      } catch (err) {
-        document.getElementById('result').innerText = 'Ошибка при расчёте: ' + err.message;
-      }
-    });
-  </script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
