@@ -3,7 +3,6 @@ document.getElementById("financeForm").addEventListener("submit", async (e) => {
   const form = e.target;
   const rawData = Object.fromEntries(new FormData(form));
 
-  // Приведение типов
   const numericFields = [
     "investment",
     "loanPercent",
@@ -28,8 +27,8 @@ document.getElementById("financeForm").addEventListener("submit", async (e) => {
 
   const data = { ...rawData };
 
-  console.log("🚀 Отправка JSON:", data);
-  document.getElementById("result").innerText = "Выполняется расчет...";
+  document.getElementById("result").innerHTML =
+    '<i class="fa fa-spinner fa-spin"></i> Выполняется расчет...';
 
   try {
     const resp = await fetch("http://localhost:8088/api/finance/calculate", {
@@ -42,27 +41,25 @@ document.getElementById("financeForm").addEventListener("submit", async (e) => {
     const result = await resp.json();
 
     document.getElementById("result").innerHTML = `
-        <b>Чистая прибыль за срок планирования (NP):</b> ${result.totalNetProfit.toFixed(
-          2
-        )} тыс ₽<br>
-        <b>Рентабельность инвестиций (ROI):</b> ${result.roi.toFixed(2)}%<br>
-        <b>Срок окупаемости проекта (PP):</b> ${
-          result.paybackMonth > 0
-            ? result.paybackMonth + " месяцев"
-            : "Не достигнута в горизонте планирования"
-        }<br>
-        <b>Операционная прибыль (EBITDA):</b> ${result.ebitda.toFixed(
-          2
-        )} тыс ₽<br>
-        <b>Денежный поток (Cash Flow):</b> ${result.cashFlow.toFixed(
-          2
-        )} тыс ₽<br>
-        <b>Точка безубыточности (Break Even):</b> ${
-          result.breakEvenMonth > 0
-            ? result.breakEvenMonth + " месяцев"
-            : "Не достигнута"
-        }
-      `;
+      <div><b>Чистая прибыль (NP):</b> ${result.totalNetProfit.toFixed(
+        2
+      )} тыс ₽</div>
+      <div><b>Рентабельность инвестиций (ROI):</b> ${result.roi.toFixed(
+        2
+      )}%</div>
+      <div><b>Срок окупаемости (PP):</b> ${
+        result.paybackMonth > 0
+          ? result.paybackMonth + " месяцев"
+          : "Не достигнута"
+      }</div>
+      <div><b>EBITDA:</b> ${result.ebitda.toFixed(2)} тыс ₽</div>
+      <div><b>Cash Flow:</b> ${result.cashFlow.toFixed(2)} тыс ₽</div>
+      <div><b>Точка безубыточности:</b> ${
+        result.breakEvenMonth > 0
+          ? result.breakEvenMonth + " месяцев"
+          : "Не достигнута"
+      }</div>
+    `;
   } catch (err) {
     document.getElementById("result").innerText =
       "Ошибка при расчёте: " + err.message;
