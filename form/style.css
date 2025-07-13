@@ -108,15 +108,21 @@ legend {
 
 .input-with-icon input,
 .input-with-icon select {
-    padding-left: 30px;
-    width: 100%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    background: #fff;
-    font-size: 0.95rem;
+  padding-left: 36px;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 0.95rem;
+  appearance: none; /* чтобы отключить стандартную стрелку */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
 }
+
 
 button[type='submit'] {
     background-color: #0073e6;
