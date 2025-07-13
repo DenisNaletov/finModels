@@ -21,17 +21,17 @@
         <img src="Logo.png" alt="Logo" />
         <span>Up&Grow Business Planner</span>
       </div>
-      <a class="home-button" href="https://naletov.org">На главную</a>
     </header>
 
     <main>
-      <h1>Генератор финансовой модели. Ver. R.003</h1>
+      <h1>Генератор финансовой модели для малого бизнеса. Ver. R.003</h1>
       <p class="hint">
         Заполните форму для получения расчета. Чем больше данных, тем точнее
         результат. Мы гарантируем конфиденциальность.
       </p>
 
       <form id="financeForm" class="form-container">
+        <!-- Общие данные -->
         <fieldset>
           <legend>Общие данные</legend>
           <div class="row">
@@ -85,6 +85,7 @@
           </div>
         </fieldset>
 
+        <!-- Доходы -->
         <fieldset>
           <legend>Доходы ежемесячные, тыс ₽</legend>
           <div class="row">
@@ -113,6 +114,7 @@
           </div>
         </fieldset>
 
+        <!-- Переменные -->
         <fieldset>
           <legend>Переменные расходы ежемесячные, тыс ₽</legend>
           <div class="row">
@@ -134,6 +136,7 @@
           </div>
         </fieldset>
 
+        <!-- Постоянные -->
         <fieldset>
           <legend>Постоянные расходы ежемесячные, тыс ₽</legend>
           <div class="row row-four">
@@ -144,6 +147,7 @@
           </div>
         </fieldset>
 
+        <!-- Инвестиции -->
         <fieldset>
           <legend>Инвестиционные данные</legend>
           <div class="row row-four">
@@ -177,10 +181,23 @@
           >.
         </p>
 
-        <button type="submit">Рассчитать</button>
+        <div style="text-align: center">
+          <button type="submit">Рассчитать</button>
+        </div>
       </form>
 
-      <div id="result" class="result-box"></div>
+      <div id="result" class="result-box">
+        <i class="fa fa-spinner fa-spin"></i> Ваш результат появится здесь после
+        расчета.
+      </div>
+
+      <div class="after-result">
+        <p>
+          Спасибо, что воспользовались нашим планером! Больше возможностей —
+          <a href="https://naletov.org/products" target="_blank">по ссылке</a>.
+        </p>
+        <a class="home-button alt" href="https://naletov.org">На главную</a>
+      </div>
     </main>
 
     <script src="script.js"></script>
