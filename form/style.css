@@ -1,3 +1,4 @@
+/* базовая стилизация — без изменений */
 * {
     box-sizing: border-box;
 }
@@ -15,7 +16,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #d6ebf5;;
+    background: #e0f7ff;
     color: #0073e6;
     padding: 10px 20px;
     flex-wrap: wrap;
@@ -34,20 +35,6 @@ body {
 .logo-section span {
     font-weight: bold;
     font-size: 1.4rem;
-}
-
-.home-button {
-    background-color: #0073e6;
-    color: white;
-    padding: 8px 16px;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    transition: background-color 0.2s;
-}
-
-.home-button:hover {
-    background-color: #005bb5;
 }
 
 main {
@@ -102,13 +89,6 @@ legend {
     border: 1px solid #ccc;
     background: #fff;
     font-size: 0.95rem;
-    transition: border 0.2s;
-}
-
-.row input:focus,
-.row select:focus {
-    border-color: #0073e6;
-    outline: none;
 }
 
 .input-with-icon {
@@ -175,21 +155,53 @@ button[type='submit']:hover {
     border-radius: 8px;
     font-size: 1rem;
     line-height: 1.6;
+    color: #003355;
 }
+
+.after-result {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.after-result p {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.after-result .home-button.alt {
+    background-color: #44a574;
+}
+
+.after-result .home-button.alt:hover {
+    background-color: #31825a;
+}
+
+.home-button {
+    background-color: #0073e6;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+}
+
 .row-four input,
 .row-four select {
     flex: 1 1 calc(25% - 15px);
     min-width: 180px;
 }
 
-/* Адаптив для мобилок */
-
 @media (max-width: 768px) {
-  .row-four input,
-  .row-four select {
-    flex: 1 1 100%;
-    min-width: unset;
-  }
+
+    .row-four input,
+    .row-four select {
+        flex: 1 1 100%;
+        min-width: unset;
+    }
 
     .row input,
     .row select,
@@ -199,20 +211,9 @@ button[type='submit']:hover {
         flex: 1 1 100%;
         min-width: unset;
     }
-    .row-four input,
-    .row-four select {
-                flex: 1 1 100%;
-                min-width: unset;
-            }
-
-    .home-button {
-        margin-top: 10px;
-        width: 100%;
-        text-align: center;
-    }
 
     .header {
         flex-direction: column;
         align-items: flex-start;
     }
-    }
+}
