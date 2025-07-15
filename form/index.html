@@ -13,6 +13,49 @@
       referrerpolicy="no-referrer"
     />
     <link rel="icon" href="Logo.png" type="image/png" />
+    <!-- внутри head -->
+    <style>
+      .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        margin-left: 6px;
+      }
+
+      .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 260px;
+        background-color: #333;
+        color: #fff;
+        text-align: left;
+        border-radius: 6px;
+        padding: 8px 10px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+        font-size: 0.8rem;
+      }
+
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #333 transparent transparent transparent;
+      }
+    </style>
   </head>
 
   <body>
@@ -26,8 +69,15 @@
     <main>
       <h1>Генератор финансовой модели для малого бизнеса. Ver. R.003</h1>
       <p class="hint">
-        Заполните форму для получения расчета. Чем больше данных, тем точнее
-        результат. Мы гарантируем конфиденциальность.
+        <div class="details-toggle">
+  <a href="#" id="details-toggler">Подробнее о сервисе финансовой модели ▼</a>
+  <div id="details-content">
+    <p>Заполните форму для получения расчета. Чем больше данных, тем точнее результат. Мы гарантируем конфиденциальность.
+      Этот калькулятор помогает оценить эффективность вашего бизнеса: рассчитать операционную и чистую прибыль, срок окупаемости и другие ключевые показатели. Вы можете вводить как точные, так и примерные значения — всё, кроме обязательных полей, опционально. Удачи!
+    </p>
+  </div>
+</div>
+
       </p>
 
       <form id="financeForm" class="form-container">
@@ -80,6 +130,7 @@
                 placeholder="Срок планирования, лет"
                 min="1"
                 max="20"
+                required
               />
             </div>
           </div>
@@ -91,7 +142,12 @@
           <div class="row">
             <div class="input-with-icon">
               <i class="fa fa-chart-line"></i>
-              <input type="number" name="revenue" placeholder="Выручка" />
+              <input
+                type="number"
+                name="revenue"
+                placeholder="Выручка"
+                required
+              />
             </div>
             <div class="input-with-icon">
               <i class="fa fa-arrow-up"></i>
@@ -100,6 +156,10 @@
                 name="revenueGrowthPercent"
                 placeholder="Рост, %"
               />
+              <div class="input-hint">
+                Запланируйте рост выручки, например 2 % от начального значения
+                ежемесячной выручки
+              </div>
             </div>
             <div class="input-with-icon">
               <i class="fa fa-clock"></i>
@@ -110,6 +170,22 @@
                 <option value="quarter">Ежеквартально</option>
                 <option value="halfyear">Раз в полгода</option>
               </select>
+              <div class="input-hint">
+                Запланируйте, как часто растет выручка, например планируем рост
+                2 % каждый месяц
+              </div>
+            </div>
+            <div class="input-with-icon">
+              <i class="fa fa-chart-line"></i>
+              <input
+                type="number"
+                name="otherIncome"
+                placeholder="Прочие доходы"
+              />
+              <div class="input-hint">
+                Денежные поступления кроме выручки, например доходы от акций,
+                поступления от другого направления бизнеса
+              </div>
             </div>
           </div>
         </fieldset>
@@ -124,6 +200,10 @@
                 <option value="true">в % от выручки</option>
                 <option value="false">в рублях</option>
               </select>
+              <div class="input-hint">
+                Выберите, как учесть переменные расходы - сумма в месяц или % от
+                месячной выручки
+              </div>
             </div>
             <div class="input-with-icon">
               <i class="fa fa-ruble-sign"></i>
@@ -140,7 +220,12 @@
         <fieldset>
           <legend>Постоянные расходы ежемесячные, тыс ₽</legend>
           <div class="row row-four">
-            <input type="number" name="suppliesExpense" placeholder="Закупки" />
+            <input
+              type="number"
+              name="suppliesExpense"
+              placeholder="Закупки"
+              required
+            />
             <input type="number" name="salaryExpense" placeholder="Зарплата" />
             <input type="number" name="rentExpense" placeholder="Аренда" />
             <input type="number" name="otherExpense" placeholder="Прочие" />
@@ -151,26 +236,50 @@
         <fieldset>
           <legend>Инвестиционные данные</legend>
           <div class="row row-four">
-            <input
-              type="number"
-              name="investment"
-              placeholder="Инвестиции, тыс ₽"
-            />
-            <input
-              type="number"
-              name="loanPercent"
-              placeholder="% по кредиту"
-            />
-            <input
-              type="number"
-              name="loanHoliday"
-              placeholder="Кредит. каникулы, мес"
-            />
-            <input
-              type="number"
-              name="loanTerm"
-              placeholder="Срок кредита, лет"
-            />
+            <div class="input-with-icon">
+              <input
+                type="number"
+                name="investment"
+                placeholder="Инвестиции, тыс ₽"
+              />
+              <div class="input-hint">
+                Сумма инвестиций, необходимая на старте проекта
+              </div>
+            </div>
+
+            <div class="input-with-icon">
+              <input
+                type="number"
+                name="loanPercent"
+                placeholder="% по кредиту"
+              />
+              <div class="input-hint">
+                Годовая процентная ставка по кредиту, которая может быть
+                согласована банком / инвестором
+              </div>
+            </div>
+
+            <div class="input-with-icon">
+              <input
+                type="number"
+                name="loanHoliday"
+                placeholder="Кредит. каникулы, мес"
+              />
+              <div class="input-hint">
+                Опциональные период развития проекта, который может быть
+                предоставлен инвестором. Когда вы не погашаете тело кредита
+                (например, первый год)
+              </div>
+            </div>
+
+            <div class="input-with-icon">
+              <input
+                type="number"
+                name="loanTerm"
+                placeholder="Срок кредита, лет"
+              />
+              <div class="input-hint">TO DO: Общий срок возврата кредита</div>
+            </div>
           </div>
         </fieldset>
 
