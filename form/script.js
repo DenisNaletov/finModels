@@ -65,3 +65,17 @@ document.getElementById("financeForm").addEventListener("submit", async (e) => {
       "Ошибка при расчёте: " + err.message;
   }
 });
+
+document.getElementById("details-toggler").addEventListener("click", (e) => {
+  e.preventDefault();
+  const content = document.getElementById("details-content");
+  const toggler = e.target;
+
+  if (content.style.display === "block") {
+    content.style.display = "none";
+    toggler.textContent = "Подробнее ▼";
+  } else {
+    content.style.display = "block";
+    toggler.textContent = "Скрыть ▲";
+  }
+});
